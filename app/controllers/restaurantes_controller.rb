@@ -2,7 +2,10 @@ class RestaurantesController < ApplicationController
 
   def index
     #render "index"
-    @restaurantes = Restaurante.order :nome
+    #@restaurantes = Restaurante.order :nome
+
+    #Utilizar o kaminari para paginacao
+    @restaurantes = Restaurante.order("nome").page(params['page']).per(3)
 
     respond_to do |format|	
       format.html
@@ -30,14 +33,11 @@ class RestaurantesController < ApplicationController
  end
 
 
- def new
-   @restaurante = Restaurante.new
- end
+  def new
+    @restaurante = Restaurante.new
+  end
 
-  def restaurante_params
-    params.require(:restaurante).permit(:nome, :endereco, :especialidade)
-   end
-
+ 
   def create
      @restaurante = Restaurante.new restaurante_params
 
@@ -48,21 +48,24 @@ class RestaurantesController < ApplicationController
      end
   end
 
+  def restaurante_params
+    params.require(:restaurante).permit(:nome, :endereco, :especialidade, :foto)
+  end
 
 
   def edit
     @restaurante = Restaurante.find params[:id]
   end
 
- def update
-  @restaurante = Restaurante.find params[:id]
+  def update
+    @restaurante = Restaurante.find params[:id]
 
-  if @restaurante.update_attributes(restaurante_params)
-    redirect_to action: "show", id: @restaurante
-  else
-    render action: "edit"
+     if @restaurante.update_attributes(restaurante_params)
+        redirect_to action: "show", id: @restaurante
+     else
+        render action: "edit"
+     end
   end
-end
 
 
 end

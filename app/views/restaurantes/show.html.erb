@@ -25,6 +25,11 @@
   <%= @restaurante.qualificacoes.average(:valor_gasto) %><br/>
 <br/>
 
+<p>
+  <b>Foto:</b>
+    <%= image_tag @restaurante.foto.url(:thumb) %>
+</p>
+
 
 <%= link_to "Qualificar este restaurante", controller: "qualificacoes", action: "new", restaurante: @restaurante %>
 
