@@ -23,19 +23,38 @@ class ComentariosController < ApplicationController
 
   # POST /comentarios
   # POST /comentarios.json
+
+  #def create
+  #  @comentario = Comentario.new(comentario_params)
+  #  respond_to do |format|
+  #    if @comentario.save
+  #      format.html { redirect_to @comentario, notice: 'Comentario was successfully created.' }
+  #      format.json { render :show, status: :created, location: @comentario }
+  #    else
+  #      format.html { render :new }
+  #      format.json { render json: @comentario.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
+
+  #Ajax
   def create
     @comentario = Comentario.new(comentario_params)
-
     respond_to do |format|
       if @comentario.save
-        format.html { redirect_to @comentario, notice: 'Comentario was successfully created.' }
-        format.json { render :show, status: :created, location: @comentario }
+	format.js
       else
         format.html { render :new }
         format.json { render json: @comentario.errors, status: :unprocessable_entity }
       end
     end
   end
+
+
+
+
+
+
 
   # PATCH/PUT /comentarios/1
   # PATCH/PUT /comentarios/1.json
@@ -61,6 +80,7 @@ class ComentariosController < ApplicationController
   #  end
   #end
 
+  #Ajax
   def destroy
     @comentario = Comentario.find(params[:id])
     @comentario.destroy
